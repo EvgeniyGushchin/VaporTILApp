@@ -10,10 +10,17 @@ struct CategoriesController: RouteCollection {
         categoriesRoute.get(use: getAllHandler)
         categoriesRoute.get(Category.parameter, use: getHandler)
         categoriesRoute.get(Category.parameter, "acronyms", use: getAcronymsHandler)
+        categoriesRoute.delete(Category.parameter, use: deleteHandler)
     }
     
     func createHandler(_ req: Request, category: Category) throws -> Future<Category> {
         return category.save(on: req)
+    }
+    
+    func deleteHandler(_ req: Request) throws -> Future<HTTPStatus> {
+        return try req.parameters.next(Category.self)
+        .delete(on: req)
+        .transform(to: .noContent)
     }
     
     func getAllHandler(_ req: Request) -> Future<[Category]> {
