@@ -109,7 +109,7 @@ final class AcronymTests: XCTestCase {
 
     XCTAssertEqual(acronyms.count, 1)
 
-    _ = try app.sendRequest(to: "\(acronymsURI)\(acronym.id!)", method: .DELETE)
+    _ = try app.sendRequest(to: "\(acronymsURI)\(acronym.id!)", method: .DELETE, loggedInRequest: true)
     acronyms = try app.getResponse(to: acronymsURI, decodeTo: [Acronym].self, loggedInRequest: true)
 
     XCTAssertEqual(acronyms.count, 0)
