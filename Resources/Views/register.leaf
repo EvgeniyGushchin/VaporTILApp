@@ -28,4 +28,4 @@
     </form>
 }
 
-#embed(base)
+#embed("base")
